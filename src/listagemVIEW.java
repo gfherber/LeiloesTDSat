@@ -1,6 +1,6 @@
-
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane; // Import adicionado para o JOptionPane
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -219,6 +219,7 @@ public class listagemVIEW extends javax.swing.JFrame {
                 });
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao preencher tabela: " + e.getMessage());
         }
     
     }
