@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JOptionPane; // Import adicionado para o JOptionPane
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -136,17 +136,31 @@ public class listagemVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-        String id = id_produto_venda.getText();
-        
-        ProdutosDAO produtosdao = new ProdutosDAO();
-        
-        //produtosdao.venderProduto(Integer.parseInt(id));
-        listarProdutos();
+        try {
+            String id = id_produto_venda.getText();
+            
+            if (id.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Informe o ID do produto para vender.");
+                return;
+            }
+            
+            ProdutosDAO produtosdao = new ProdutosDAO();
+            produtosdao.venderProduto(Integer.parseInt(id));
+            
+            // Atualiza a listagem logo após a venda
+            listarProdutos();
+            
+            // Limpa o campo de ID após vender
+            id_produto_venda.setText("");
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Por favor, digite um ID numérico válido.");
+        }
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-        //vendasVIEW vendas = new vendasVIEW(); 
-        //vendas.setVisible(true);
+        vendasVIEW vendas = new vendasVIEW(); 
+        vendas.setVisible(true);
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
@@ -221,6 +235,5 @@ public class listagemVIEW extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao preencher tabela: " + e.getMessage());
         }
-    
     }
 }
